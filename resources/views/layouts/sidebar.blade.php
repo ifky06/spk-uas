@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-light-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
     <a href="{{url('/')}}" class="brand-link text-center">
         <i class="brand-image pl-1 pt-2 fas fa-chart-line"></i>
@@ -49,22 +49,22 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ url('/perhitungan') }}" class="nav-link">
-                        <i class="nav-icon fas fa-calculator"></i>
-                        <p>
-                            Data Perhitungan
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{ url('/hasil_akhir') }}" class="nav-link">
-                        <i class="nav-icon fas fa-poll"></i>
-                        <p>
-                            Hasil Akhir
-                        </p>
-                    </a>
-                </li>
+{{--                <li class="nav-item">--}}
+{{--                    <a href="{{ url('/perhitungan') }}" class="nav-link">--}}
+{{--                        <i class="nav-icon fas fa-calculator"></i>--}}
+{{--                        <p>--}}
+{{--                            Data Perhitungan--}}
+{{--                        </p>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
+{{--                <li class="nav-item">--}}
+{{--                    <a href="{{ url('/hasil_akhir') }}" class="nav-link">--}}
+{{--                        <i class="nav-icon fas fa-poll"></i>--}}
+{{--                        <p>--}}
+{{--                            Hasil Akhir--}}
+{{--                        </p>--}}
+{{--                    </a>--}}
+{{--                </li>--}}
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
