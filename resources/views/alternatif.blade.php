@@ -53,7 +53,7 @@
                             @endforeach
                             <td>
                                 <button data-toggle="modal" data-target="#inputNilai"
-                                        onclick='setAlternatif(@json($item))' class="btn btn-warning">Input
+                                        onclick='setAlternatif(@json($item), @json($kriteria), @json($subKriteria), @json($alternatifKriteriaGrouped))' class="btn btn-warning">Input
                                     Nilai</button>
                                 <button type="button" class="btn btn-danger" data-toggle="modal"
                                         data-target="#deleteAltButton" onclick="deleteAlternatif({{ $item }})">
@@ -70,7 +70,7 @@
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Tambah Alternatif</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -104,23 +104,10 @@
                                     <span aria-hidden="true">&times;</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
                                 @csrf
-
                                 <input name="id_alternatif" id="idAlternatif" type="hidden">
-                                @foreach ($kriteria as $krt)
-                                    <div class="form-group">
-                                        <label for="nama">{{ $krt->nama_kriteria }}</label>
-                                        <select name="value[]" id="idKriteria" class="form-control">
-                                            @foreach ($subKriteria as $sk)
-                                                @if ($sk->id_kriteria == $krt->id)
-                                                    <option value="{{ $sk->value }}">{{ $sk->range_kriteria }}</option>
-                                                @endif
-                                            @endforeach
-                                        </select>
-                                        <input name="id[]" id="idKriteria" type="hidden" value="{{ $krt->id }}">
-                                    </div>
-                                @endforeach
+                            <div class="modal-body" id="addValueAlternatifKriteria">
+
                             </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Submit</button>
@@ -160,24 +147,47 @@
     <script>
         let alternatif;
 
-        function setAlternatif(newAlternatif) {
+        function setAlternatif(newAlternatif, kriteria, subKriteria, ak) {
             alternatif = newAlternatif;
             console.log(alternatif);
+            // console.log(kriteria);
+            // console.log(subKriteria);
             // set value form
             document.getElementById('namaAlternatif').value = alternatif.nama_alternatif;
             document.getElementById('idAlternatif').value = alternatif.id;
+            var container = document.getElementById('addValueAlternatifKriteria');
+            container.innerHTML = '';
+            kriteria.forEach(function(krt) {
+                container.innerHTML += generateKriteriaHTML(alternatif.id, krt, subKriteria, ak);
+            });
         }
 
-        {{--function deleteAlternatif(id) {--}}
-        {{--    if (confirm('Apakah Anda yakin ingin menghapus kriteria ini?')) {--}}
-        {{--        var form = document.createElement('form');--}}
-        {{--        form.action = '{{ url('alternatif') }}/' + id;--}}
-        {{--        form.method = 'POST';--}}
-        {{--        form.innerHTML = '<input type="hidden" name="_method" value="DELETE">' + '{{ csrf_field() }}';--}}
-        {{--        document.body.appendChild(form);--}}
-        {{--        form.submit();--}}
-        {{--    }--}}
-        {{--}--}}
+        function generateKriteriaHTML(idAlterinatif, kriteria, subKriteria, ak) {
+            var html = '<div class="form-group">';
+            html += '<label for="nama">' + kriteria.nama_kriteria + '</label>';
+            html += '<select name="value[]" class="form-control">';
+
+            // Filter subKriteria based on the current kriteria id
+            var filteredSubKriteria = subKriteria.filter(function(sk) {
+                return sk.id_kriteria === kriteria.id;
+            });
+
+            // Iterate over filtered subKriteria to create options
+            filteredSubKriteria.forEach(function(sk) {
+                // console.log(ak[idAlterinatif][kriteria.id][0].value);
+                if (ak[idAlterinatif] === undefined || ak[idAlterinatif][kriteria.id][0].value !== sk.value ) {
+                    html += '<option value="' + sk.value + '">' + sk.range_kriteria + '</option>';
+                } else {
+                    html += '<option value="' + sk.value + '" selected>' + sk.range_kriteria + '</option>';
+                }
+            });
+
+            html += '</select>';
+            html += '<input name="id[]" type="hidden" value="' + kriteria.id + '">';
+            html += '</div>';
+            return html;
+        }
+
     </script>
     <script>
         function deleteAlternatif(newAlternatif) {
