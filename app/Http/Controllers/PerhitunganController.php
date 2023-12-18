@@ -55,6 +55,13 @@ class PerhitunganController extends Controller
 //          ->with('p
     }
 
+    public function reset() {
+        Alternatif::query()->delete();
+        kriteria::query()->delete();
+        return redirect('/');
+    }
+
+
     public function matriksKeputusan($alternatif, $kriteria, $alternatif_kriteria){
         $matriksKeputusan = [];
         foreach ($alternatif as $key => $value) {

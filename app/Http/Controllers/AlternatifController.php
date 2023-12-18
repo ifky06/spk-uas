@@ -28,7 +28,15 @@ class AlternatifController extends Controller
 
     public function store(Request $request)
     {
-        Alternatif::create($request->all());
+        $newAlternatifId = Alternatif::create($request->all())->id;
+        $kriteria = Kriteria::all();
+        foreach ($kriteria as $k) {
+            AlternatifKriteria::create([
+                'id_alternatif' => $newAlternatifId,
+                'id_kriteria' => $k->id,
+                'value' => 1
+            ]);
+        }
 
         return redirect('alternatif')
             ->with('success', 'Alternatif berhasil ditambahkan');

@@ -27,3 +27,4 @@ Route::resource('alternatif', AlternatifController::class);
 Route::resource('alternatif_kriteria', AlternatifKriteriaController::class);
 Route::get('/perhitungan', [PerhitunganController::class, 'index']);
 Route::get('/hasil', [PerhitunganController::class, 'hasil']);
+Route::post('/reset', [PerhitunganController::class, 'reset']);
