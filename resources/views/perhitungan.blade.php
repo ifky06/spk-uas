@@ -141,6 +141,45 @@
             </div>
     </section>
 
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <h3 class="card-title"></i>Nilai Yi</h3>
+            </div>
+
+
+            <div class="card-body">
+                <table class="table table-bordered table-hover custom-table">
+                    <thead>
+                        <tr>
+                            <th>Nama Alternatif</th>
+                            <th>Maksimum</th>
+                            <th>Minimum</th>
+                            <th>Nilai Yi</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach ($nilaiYi as $item)
+                            <tr>
+                                @foreach ($item as $i)
+                                    {{--                                if not string--}}
+                                    @if(!is_string($i))
+                                        <td>{{ number_format($i, 4) }}</td>
+                                    @else
+                                        <td>{{ $i }}</td>
+                                    @endif
+                                @endforeach
+
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+    </section>
+
     <style>
         .custom-table {
             width: 100%;

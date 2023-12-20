@@ -28,25 +28,19 @@
                 <table class="table table-bordered table-hover custom-table text-center">
                     <thead>
                     <tr>
-                        <th>Nama Alternatif</th>
-                        <th>Maksimum</th>
-                        <th>Minimum</th>
-                        <th>Nilai Yi</th>
                         <th>Rangking</th>
+                        <th>Nama Alternatif</th>
+                        <th>Nilai Yi</th>
+
                     </tr>
                     </thead>
                     <tbody>
                     @foreach ($perangkingan as $item)
                         <tr>
-                            @foreach ($item as $i)
-{{--                                if not string--}}
-                                @if(!is_string($i))
-                                    <td>{{ number_format($i, 4) }}</td>
-                                @else
-                                    <td>{{ $i }}</td>
-                                @endif
-                            @endforeach
                             <td>{{ $loop->iteration }}</td>
+                            <td>{{ $item[0] }}</td>
+                            <td>{{ number_format($item[3], 4) }}</td>
+
                         </tr>
                     @endforeach
                     </tbody>
